@@ -186,51 +186,6 @@ module radix2fft(
 	assign arc_S3_S4 = delayGA2_done & (FSM_ps == S3) & (stage==8);
 	assign arc_S4_done = addr_done & (FSM_ps == S4); 
 	
-	assign Mem1WR = (FSM_ps == S1)? 0:
-						 (FSM_ps == S2)? 1:
-						 (FSM_ps == S3)? 0:
-						 (fftbegin)? 1:1'bx;	
-	assign addr_1a = (FSM_ps == S1)? re_addr:
-						  (FSM_ps == S2)? q_addrA:
-						  (FSM_ps == S3)? delay_addrA:
-						  (fftbegin)? norm_addr:8'hxx;
-	assign addr_1b = (FSM_ps == S2)? q_addrB:
-						  (FSM_ps == S3)? delay_addrB:8'hxx;	
-	assign i_mem1A = (FSM_ps == S1)? delayx_input:
-						  (FSM_ps == S3)? o_bfuA :64'hx;
-	assign i_mem1B = (FSM_ps == S3)? o_bfuB :64'hx;
-
-	assign Mem2WR = (FSM_ps == S1)? 0:
-						 (FSM_ps == S2)? 0:
-						 (FSM_ps == S3)? 1:1'bx;	
-						 
-	assign addr_2a = (FSM_ps == S1)? re_addr:
-						  (FSM_ps == S2)? delay_addrA:
-						  (FSM_ps == S3)? q_addrA:8'hxx;
-						  
-	assign addr_2b = (FSM_ps == S2)? delay_addrB:
-						  (FSM_ps == S3)? q_addrB:8'hxx;						  
-
-	assign i_mem2A = (FSM_ps == S1)? delayx_input:
-						  (FSM_ps == S2)? o_bfuA :64'hx;
-	assign i_mem2B = (FSM_ps == S2)? o_bfuB :64'hx;
-						  
-	assign w_addr = (FSM_ps == S2)? delay_addrW:
-					    (FSM_ps == S3)? delay_addrW:8'hxx;	
-	assign i_bfuA = (FSM_ps == S2)? o_mem1A:
-						 (FSM_ps == S3)? o_mem2A:64'hx;						 
-	assign i_bfuB = (FSM_ps == S2)? o_mem1B:
-						 (FSM_ps == S3)? o_mem2B:64'hx;	
-						 
-	assign GA1_en = (FSM_ps == S1)? 1:
-						 (fftbegin)? 1:0;
-	
-	assign GA2_en = (GA2_done)?    0:
-						 (FSM_ps == S2)? 1:
-						 (FSM_ps == S3)? 1:0;
-	
-	assign FFT = (fftbegin & (addr_1a >= 1) || (fftbegin & (addr_done)))? o_mem1A:64'hx;
-	assign fftbegin = (FSM_ps == S4) & (!delayGA2_done); 
-	assign done = arc_S4_done;
+	/*Assign to module pins*/
 	
 endmodule
