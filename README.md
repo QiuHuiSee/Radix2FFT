@@ -1,5 +1,5 @@
 # Radix2FFT
-This is a 256-point FFT with 32-bit data size written in Verilog code format.
+This is a 256-point FFT with 32-bit data size written in Verilog code format for my degree thesis. 
 
 ## Block diagram
 ![image](https://user-images.githubusercontent.com/55496892/83227755-86bf6a00-a1b7-11ea-8033-379fa295649e.png)
